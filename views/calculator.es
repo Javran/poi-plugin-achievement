@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Col, Panel, FormControl, ButtonGroup, Button, Table, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import {exlist,dayofMonth} from '../lib/util'
-
+import { log } from '../debug'
 
 export default class SenkaCalculator extends Component {
   handleChangeTarget = e =>{
@@ -40,7 +40,7 @@ export default class SenkaCalculator extends Component {
     try {
       return this.render_D()
     } catch (e) {
-      console.log(e)
+      log(e)
       return (
         <div>
           <div>

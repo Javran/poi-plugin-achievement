@@ -18,6 +18,8 @@ import {
   mainUISelector,
 } from './selectors'
 
+import { log } from './debug'
+
 const Chart = require("./assets/Chart")
 
 let lineChart
@@ -152,12 +154,12 @@ export const reactClass = connect(
     if(needupdate){
       this.setState(achieve,()=>{
         if(willUpdateChart){
-          console.log('================')
-          console.log(data.r5his)
-          console.log(data.r20his)
-          console.log(data.r100his)
-          console.log(data.r501his)
-          console.log('================')
+          log('================')
+          log(data.r5his)
+          log(data.r20his)
+          log(data.r100his)
+          log(data.r501his)
+          log('================')
           drawChart(exphistory,exp,no, data.chartType, data.senkaType, lineChart, {
             r5his: data.r5his,
             r20his: data.r20his,
@@ -259,12 +261,12 @@ export const reactClass = connect(
         achieve.checksum=sum
       }
       if(achieve.reviseType==0){
-        console.log('checksum failed,will refresh magic')
+        log('checksum failed,will refresh magic')
         const newmagic = this.auto_magic(page,list)
         if(newmagic>0&&newmagic<100){
           achieve.mymagic=newmagic
           achieve.reviseType=1
-          console.log("newmagic:"+newmagic)
+          log("newmagic:"+newmagic)
         }
       }
       for(let i=0;i<list.length;i++){
@@ -404,7 +406,7 @@ export const reactClass = connect(
         const savepath = join(window.APPDATA_PATH, 'achieve', 'achieve.json')
         fs.writeFileSync(savepath, JSON.stringify(data))
       } catch (e2) {
-        console.log(e2)
+        log(e2)
       }
     }
   }
@@ -424,7 +426,7 @@ export const reactClass = connect(
           this.starttimer()
           /* create chart */
           if(!lineChart){
-            console.log('===== init chart =====')
+            log('===== init chart =====')
             const ctx = document.getElementById("myChart")
             const backgroundColors = [
               'rgba(255, 99, 132, 0.2)',
@@ -508,7 +510,7 @@ export const reactClass = connect(
         })
         return data
       } catch (e) {
-        console.log(e)
+        log(e)
         return {}
       }
     } else {
@@ -531,12 +533,11 @@ export const reactClass = connect(
     return r
   }
 
-
   render() {
     try {
       return this.render_D()
     } catch (e) {
-      console.log(e)
+      log(e)
       return (
         <div>
           <div>
