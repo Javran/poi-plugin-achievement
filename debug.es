@@ -9,14 +9,11 @@ if (debug) {
     dbgHandler.enable()
 }
 
-const assert = (...args) =>
-  dbgHandler.assert.apply(this, args)
-
-const log = (...args) =>
-  dbgHandler.log.apply(this, args)
-
-const error = (...args) =>
-  console.error(...args)
+// runtime dbgHandler 'enabled' flag won't be respected,
+// but this way we can get correct source locations
+const assert = dbgHandler.assert
+const log = dbgHandler.log
+const error = console.error
 
 export {
   assert,
