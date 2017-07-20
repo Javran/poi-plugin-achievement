@@ -1,22 +1,29 @@
 const { dbg } = window
 
-const debug = true
+const debugFlag = true
 
 const dbgHandler = dbg.extra('pluginAchievement')
 
-if (debug) {
-  if (!dbgHandler.isEnabled())
-    dbgHandler.enable()
+if (debugFlag) {
+  dbgHandler.enable()
 }
 
-// runtime dbgHandler 'enabled' flag won't be respected,
-// but this way we can get correct source locations
-const assert = dbgHandler.assert
-const log = dbgHandler.log
-const error = console.error
+// this way runtime dbgHandler 'enabled' flag will be respected,
+// and also we'll get correct source locations
+const debug = new (class {
+  get log() {
+    return dbgHandler.log
+  }
+  get assert() {
+    return dbgHandler.assert
+  }
+  error =
+    console.error.bind(
+      console,
+      `%cpluginAchievement`,
+      'background: linear-gradient(30deg, cyan, white 3ex)')
+})()
 
-export {
-  assert,
-  log,
-  error,
-}
+debug.error('test')
+
+export { debug }

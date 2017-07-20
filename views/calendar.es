@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Col, Panel, ButtonGroup, Button, Table } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import { getDateNo, dayofMonth, senkaOfDay } from '../lib/util'
-import { log } from '../debug'
+import { debug } from '../debug'
 
 export const drawChart = (exphis, tmpexp, tmpno, chartType, senkaType, chartBody, senkaLine) =>{
   if(senkaType=='calendar'){
@@ -111,7 +111,7 @@ export default class SenkaCalendar extends Component {
     try {
       return this.render_D()
     } catch (e) {
-      log(e)
+      debug.log(e)
       return (
         <div>
           <div>

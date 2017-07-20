@@ -10,6 +10,10 @@ import SenkaCalculator from './views/calculator'
 import SenkaCalendar from './views/calendar'
 import SenkaInfo from './views/info'
 import {drawChart} from './views/calendar.es'
+import {
+  pluginDidLoad,
+  pluginWillUnload,
+} from './mananger'
 
 import {EAforArr,getDateNo,getRankDateNo,
         fs,exlist,exvalue,dayofMonth,MAGIC_L_NUMS,MAGIC_R_NUMS} from './lib/util'
@@ -18,7 +22,7 @@ import {
   mainUISelector,
 } from './selectors'
 
-import { log } from './debug'
+import { debug } from './debug'
 
 const Chart = require("./assets/Chart")
 
@@ -154,12 +158,12 @@ export const reactClass = connect(
     if(needupdate){
       this.setState(achieve,()=>{
         if(willUpdateChart){
-          log('================')
-          log(data.r5his)
-          log(data.r20his)
-          log(data.r100his)
-          log(data.r501his)
-          log('================')
+          debug.log('================')
+          debug.log(data.r5his)
+          debug.log(data.r20his)
+          debug.log(data.r100his)
+          debug.log(data.r501his)
+          debug.log('================')
           drawChart(exphistory,exp,no, data.chartType, data.senkaType, lineChart, {
             r5his: data.r5his,
             r20his: data.r20his,
@@ -261,12 +265,12 @@ export const reactClass = connect(
         achieve.checksum=sum
       }
       if(achieve.reviseType==0){
-        log('checksum failed,will refresh magic')
+        debug.log('checksum failed,will refresh magic')
         const newmagic = this.auto_magic(page,list)
         if(newmagic>0&&newmagic<100){
           achieve.mymagic=newmagic
           achieve.reviseType=1
-          log("newmagic:"+newmagic)
+          debug.log("newmagic:"+newmagic)
         }
       }
       for(let i=0;i<list.length;i++){
@@ -406,7 +410,7 @@ export const reactClass = connect(
         const savepath = join(window.APPDATA_PATH, 'achieve', 'achieve.json')
         fs.writeFileSync(savepath, JSON.stringify(data))
       } catch (e2) {
-        log(e2)
+        debug.log(e2)
       }
     }
   }
@@ -426,7 +430,7 @@ export const reactClass = connect(
           this.starttimer()
           /* create chart */
           if(!lineChart){
-            log('===== init chart =====')
+            debug.log('===== init chart =====')
             const ctx = document.getElementById("myChart")
             const backgroundColors = [
               'rgba(255, 99, 132, 0.2)',
@@ -510,7 +514,7 @@ export const reactClass = connect(
         })
         return data
       } catch (e) {
-        log(e)
+        debug.log(e)
         return {}
       }
     } else {
@@ -537,7 +541,7 @@ export const reactClass = connect(
     try {
       return this.render_D()
     } catch (e) {
-      log(e)
+      debug.log(e)
       return (
         <div>
           <div>
@@ -647,3 +651,8 @@ export const reactClass = connect(
     )
   }
 })
+
+export {
+  pluginDidLoad,
+  pluginWillUnload,
+}

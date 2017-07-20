@@ -3,7 +3,7 @@ import _ from 'lodash'
 import {Col, Panel, FormControl, ButtonGroup, Button, Table, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import {exlist,dayofMonth} from '../lib/util'
-import { log } from '../debug'
+import { debug } from '../debug'
 
 
 export default class SenkaCalculator extends Component {
@@ -42,7 +42,7 @@ export default class SenkaCalculator extends Component {
     try {
       return this.render_D()
     } catch (e) {
-      log(e)
+      debug.log(e)
       return (
         <div>
           {e.message}
