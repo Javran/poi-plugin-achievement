@@ -24,6 +24,4 @@ const debug = new (class {
       'background: linear-gradient(30deg, cyan, white 3ex)')
 })()
 
-debug.error('test')
-
 export { debug }
